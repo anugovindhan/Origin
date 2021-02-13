@@ -17,16 +17,26 @@ public class WebSocketController {
     private Notifications notifications = new Notifications(0);
 
     @GetMapping("/notify")
-    public String getNotification() {
+    public String getNotification() throws InterruptedException {
 
-        // Increment Notification by one
-        notifications.increment();
+//        // Increment Notification by one
+//        notifications.increment();
+//
+//        // Push notifications to front-end
+//        template.convertAndSend("/topic/notification", notifications);
+        String[] strArray3 = {"Hi", "Hello","How Are You","Have A Nice Day", "Bye"};
+//        for(int i=1;i<=5;i++){
+//            Thread.sleep(3000);
+//            template.convertAndSend("/topic/notification", i);
+//            System.out.println("New\t "+ i);
+//        }
+        for (int i = 0; i < strArray3.length; i++) {
+            Thread.sleep(3000);
+            System.out.print(strArray3[i]);
+            template.convertAndSend("/topic/notification", strArray3[i]);
+        }
 
-        // Push notifications to front-end
-        template.convertAndSend("/topic/notification", notifications);
-
-
-        return "Notifications successfully sent to Angular  !";
+        return "Notifications successfully sent to Angular!";
     }
 
 }
