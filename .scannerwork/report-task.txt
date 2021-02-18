@@ -1,0 +1,5 @@
+projectKey=test-app
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/test-app
+ceTaskId=AXepMkVLanmT8bwzzGM2
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXepMkVLanmT8bwzzGM2
