@@ -19,4 +19,11 @@ export class SharedService {
     });
     return this.http.get(url, {headers: header});
   }
+  connect(token){
+    const header = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    const url = this.apiUrl + '/notify';
+    return this.http.get(url, {headers: header, responseType: 'text'});
+  }
 }

@@ -7,7 +7,7 @@ import {Stomp} from '@stomp/stompjs';
 export class WebsocketServiceService {
 
   connect() {
-    const socket = new SockJs(`http://localhost:8080/socket`);
+    const socket = new SockJs(`http://localhost:5000/api/socket`);
 
     const stompClient = Stomp.over(socket);
 
