@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from '../services/shared.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {first} from 'rxjs/operators';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   private returnUrl: string;
   private loading: boolean;
@@ -50,6 +50,9 @@ export class LoginComponent implements OnInit {
           this.error = error.error.error;
           console.log(this.error);
         });
+  }
+
+  ngOnDestroy(): void {
   }
 
 }

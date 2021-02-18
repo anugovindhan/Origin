@@ -3,11 +3,12 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {SharedService} from './shared.service';
 import {map} from 'rxjs/operators';
-import {Role} from './models/role';
+import {Role} from '../models/role';
 
 export class User {
   username: string;
   password: string;
+  role: Role;
 }
 
 @Injectable({
@@ -16,6 +17,7 @@ export class User {
 export class LoginService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  private user: User;
 
   constructor(private http: HttpClient, private service: SharedService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -39,9 +41,6 @@ export class LoginService {
 
         return user;
       }));
-  }
-  hasRole(role: Role) {
-    return this.currentUserValue && this.user.role === role;
   }
   logout() {
     // remove user from local storage to log user out

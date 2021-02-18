@@ -3,12 +3,15 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route
 import {Observable} from 'rxjs';
 import {LoginService} from './services/login.service';
 import {Role} from './models/role';
+import {AuthService} from './services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService,
+              private auth: AuthService,
+              private router: Router) {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
@@ -17,8 +20,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       // logged in so return true
       return true;
     }
-    const roles = route.data && route.data.roles as Role[];
-    if (roles && !roles.some(r => this.loginService.hasRole(r))) {
+    if (!this.auth.roleBaseAuth()) {
       return false;
     }
 

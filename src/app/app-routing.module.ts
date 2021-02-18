@@ -11,12 +11,14 @@ const routes: Routes = [
   {path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard],
-    data: {roles: [Role.User, Role.Admin]}
+    canLoad: [AuthGuard],
+    data: {roles: ['ROLE_USER',
+        'ROLE_ADMIN']}
   },
   {path: 'user',
     component: UserDashboardComponent,
     canActivate: [AuthGuard],
-    data: {roles: [Role.User]}
+    data: {roles: ['ROLE_USER']}
   },
   {path: 'login', component: LoginComponent},
 ];
