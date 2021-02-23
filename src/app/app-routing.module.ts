@@ -10,8 +10,8 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home',
     component: HomeComponent,
-    canActivate: [AuthGuard],
-    canLoad: [AuthGuard],
+    // canActivate: [AuthGuard],
+    // canLoad: [AuthGuard],
     data: {roles: ['ROLE_USER',
         'ROLE_ADMIN']}
   },

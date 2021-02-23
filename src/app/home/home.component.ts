@@ -42,7 +42,7 @@ socketConnect(){
   stompClient.connect({}, frame => {
 
     // Subscribe to notification topic
-    stompClient.subscribe('/topic/notification', notifications => {
+    stompClient.subscribe('/topic/user', notifications => {
 
       // Update notifications attribute with the recent messsage sent from the server
       console.log('test', notifications );
