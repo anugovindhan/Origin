@@ -16,6 +16,7 @@ public class PushMessageService {
 
         for (int i = 0; i < strArray3.length; i++) {
             Thread.sleep(3000);
+            System.out.print("\n"+ strArray3[i]);
             template.convertAndSend("/topic/notification", strArray3[i]);
         }
 

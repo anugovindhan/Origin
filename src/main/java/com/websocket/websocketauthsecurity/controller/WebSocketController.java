@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 
 @RestController
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class WebSocketController {
 
     @Autowired
@@ -31,6 +31,7 @@ public class WebSocketController {
 
             pushMessageService.getMessages();
             return "Notifications successfully sent to Angular!";
+
 
         }else {
 
