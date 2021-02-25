@@ -43,11 +43,7 @@ socketConnect(){
 
     // Subscribe to notification topic
     stompClient.subscribe('/topic/user', notifications => {
-
-      // Update notifications attribute with the recent messsage sent from the server
-      console.log('test', notifications );
       this.mess = notifications.body;
-      // this.notifications = JSON.parse(notifications.body).count;
     });
   });
 }
