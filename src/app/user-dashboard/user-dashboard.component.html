@@ -1,0 +1,14 @@
+<div class="container h-100 d-flex">
+  <div class="col-8 m-auto">
+    <div class="12">
+      <div class="card shadow" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{this.user['username']}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{this.user['email']}}</h6>
+          <p class="card-text">Welcome USER</p>
+          <a (click)="logOut()" href="#" class="card-link">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
