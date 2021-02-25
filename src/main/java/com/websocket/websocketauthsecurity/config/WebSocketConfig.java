@@ -13,6 +13,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
+
         stompEndpointRegistry.addEndpoint("/socket")
                 .setAllowedOrigins("*")
                 .withSockJS();
@@ -24,5 +25,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/app");
 
     }
+
 
 }

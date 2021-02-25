@@ -22,7 +22,6 @@ import javax.validation.Valid;
  * Controller to authenticate users.
  */
 @RestController
-//@RequestMapping("/api")
 public class AuthenticationRestController {
 
     private final TokenProvider tokenProvider;

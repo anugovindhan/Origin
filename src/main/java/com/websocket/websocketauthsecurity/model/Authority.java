@@ -12,11 +12,9 @@ public class Authority {
     @Column(name = "NAME", length = 50)
     @NotNull
     private String name;
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }

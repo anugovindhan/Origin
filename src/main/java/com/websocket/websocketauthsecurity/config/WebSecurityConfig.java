@@ -38,14 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
     }
 
-    // Configure BCrypt password encoder =====================================================================
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // Configure paths and requests that should be ignored by Spring Security ================================
 
     @Override
     public void configure(WebSecurity web) {
@@ -69,43 +65,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
-
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationErrorHandler)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                // enable h2-console
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
 
-                // create no session
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/api/authenticate").permitAll()
-                // .antMatchers("/api/register").permitAll()
-                // .antMatchers("/api/activate").permitAll()
-                // .antMatchers("/api/account/reset-password/init").permitAll()
-                // .antMatchers("/api/account/reset-password/finish").permitAll()
-//                .antMatchers("/api/authenticate").permitAll()
-//                .antMatchers("/api/person").hasAuthority("ROLE_USER")
-//                .antMatchers("/api/hiddenmessage").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/api/notify").hasAuthority("ROLE_ADMIN")
-//                .anyRequest().authenticated()
+
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/person").hasAuthority("ROLE_USER")
                 .antMatchers("/hiddenmessage").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/notify").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/socket/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/socket/**").permitAll()
+                .antMatchers("/topic/notification").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
 
                 .and()

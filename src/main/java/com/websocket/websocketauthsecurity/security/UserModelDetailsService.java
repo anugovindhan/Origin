@@ -17,9 +17,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-/**
- * Authenticate a user from the database.
- */
 @Component("userDetailsService")
 public class UserModelDetailsService implements UserDetailsService {
 
