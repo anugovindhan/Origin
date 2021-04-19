@@ -12,7 +12,6 @@ export default function configureStore(): any {
         applyMiddleware(thunk),
     ];
 
-
     const store: any = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
     sagaMiddleware.run(loginFlow);

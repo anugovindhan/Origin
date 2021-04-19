@@ -1,48 +1,50 @@
 import React from 'react';
+import {useForm} from "react-hook-form";
+import {fakeAuthorize} from "../sagas";
+import {Button, Card} from "react-bootstrap";
+type login=
+    {
+        username: string;
+        password: string;
+    }
 
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
-import Button from '@material-ui/core/Button';
+function Login (props:any, state: any): any {
 
-const Login = () => {
+    const { register, handleSubmit,errors} = useForm<login>()
+
+    const onSubmit = handleSubmit((data:any) => {
+        props.parentCallBack(data);
+        props.signIn();
+        fakeAuthorize(data.username, data.password);
+        });
     return (
-        <form  noValidate autoComplete="off">
-            <Card >
-                <CardHeader  title="Login App" />
-                <CardContent>
-                    <div>
-                        <TextField
-                            fullWidth
-                            id="username"
-                            type="email"
-                            label="Username"
-                            placeholder="Username"
-                            margin="normal"
-                        />
-                        <TextField
-                            fullWidth
-                            id="password"
-                            type="password"
-                            label="Password"
-                            placeholder="Password"
-                            margin="normal"
-                        />
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        color="secondary"
-                        >
-                        Login
-                    </Button>
-                </CardActions>
-            </Card>
-        </form>
+        <React.Fragment>
+            <form onSubmit={onSubmit}>
+                <Card className="text-center">
+                    <Card.Header>LOGIN</Card.Header>
+                <div >
+                    <label htmlFor="username">User Name:</label>
+                    <input ref={register({required : true})} id="username" name="username" type="text"
+                           placeholder="Enter username" />
+                    {
+                        errors.username && <div className="error"> Enter Your User Name</div>
+                    }
+                </div>
+                <div >
+                    <label htmlFor="password">Password:</label>
+                    <input className="text-muted" type="password" ref={register ({required : true})} id="password" name="password"
+                           placeholder="Enter Password"/>
+                    {
+                        errors.password && <div className="error"> Enter Your Password</div>
+                    }
+                </div>
+                <div>
+                    <Button variant="primary" className="mt-auto" type="submit"> Login</Button>
+                    <Button variant="secondary" type="reset">Reset</Button>{' '}
+                </div>
+                </Card>
+            </form>
+        </React.Fragment>
     );
 }
 

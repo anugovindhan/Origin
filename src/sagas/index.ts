@@ -1,11 +1,28 @@
-import axios from 'axios'
-import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects';
 
-export function fakeAuthorize (user: any, password: any) {
+import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects';
+import {LOGIN_REQUEST} from "../actions/actionTypes";
+
+export function fakeAuthorize (username: any, password: any) {
+    let obj: any = {
+        username: username,
+        password:password
+    }
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await axios.get('http://localhost:5000/authenticate');
-            resolve(result.data.token);
+            fetch('http://localhost:5000/authenticate', {
+                method: 'POST',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify(obj)
+            }).then(r => r.json()).then(res => {
+                if (res) {
+                    console.log(res.id_token);
+                    resolve(res.id_token);
+                    // props.history.push('/employee');
+                }
+                else{
+                    alert('Error in Login');
+                }
+            });;
         } catch(error) {
             reject(error);
         }
@@ -15,6 +32,7 @@ export function fakeAuthorize (user: any, password: any) {
 export function* authorize(user:any, password:any): any {
     try {
         const token: any = yield call(fakeAuthorize, user, password)
+        console.log('Hai');
         yield put({type: 'LOGIN_SUCCESS'})
         yield put({type: 'SAVE_TOKEN', token});
     } catch(error) {
@@ -22,6 +40,7 @@ export function* authorize(user:any, password:any): any {
     }
     finally {
         if (yield cancelled()) {
+            console.log('Hai 1');
             yield put({type: 'LOGIN_CANCELLED'})
         }
     }
