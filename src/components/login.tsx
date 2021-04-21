@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from "react";
-import { Form, Input, Button, Checkbox, Card } from 'antd';
-import {render} from "react-dom";
+import React, {useEffect} from "react";
+import { Form, Input, Button,Card } from 'antd';
 import { Row, Col } from 'antd';
 import {fakeAuthorize} from "../sagas";
 import { Alert } from 'antd';
 import {connect} from "react-redux";
 import {LOGIN_REQUEST, LOGOUT} from "../actions/actionTypes";
 import { dataService} from "../services/shared-component";
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 function Login (props: any , state: any) {
+
     const [form] = Form.useForm();
     useEffect(() => {
         dataService.getData().subscribe((message: any) => {
@@ -48,7 +50,10 @@ function Login (props: any , state: any) {
             return (
                 <Card>
                 <Row className={'vh-100'} align="middle">
-                    <Col span={12} offset={6}>
+
+                    <Col span={12} offset={7}>
+                        <h3 className="move-up-leave">LOGIN</h3>
+
                         <Form
                             form={form}
                             {...layout}
@@ -58,27 +63,30 @@ function Login (props: any , state: any) {
                             onFinishFailed={onFinishFailed}
                         >
                             <Form.Item
-                                label="Email"
+                                // label="Email"
                                 name="username"
+
                                 rules={[{ required: true, type: 'email',message: 'Please input your Email!' }]}
                             >
-                                <Input />
+                                <Input prefix={<UserOutlined className="site-form-item-icon" />}  placeholder="Email" />
                             </Form.Item>
 
                             <Form.Item
-                                label="Password"
+                                // label="Password"
                                 name="password"
                                 rules={[{ required: true, message: 'Please input your password!' }]}
                             >
-                                <Input.Password />
+                                <Input.Password prefix={<LockOutlined className="site-form-item-icon" />}  placeholder="Password" />
                             </Form.Item>
 
+
                             <Form.Item {...tailLayout}>
-                                <Button className="ml-2" type="primary" htmlType="submit">
+                                <Button  type="primary" htmlType="submit">
                                     Submit
                                 </Button>
                                 <Button className="ml-2" onClick={onReset}> Cancel </Button>
 
+                                <Link className="ml-2" to="/register">register now!</Link>
                             </Form.Item>
                             <p>status: {props.status}</p>
                             <p>token: {props.token || ''}</p>

@@ -1,7 +1,7 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers/rootReducer';
-import { logActions, loginFlow } from './../sagas';
+import watchUserAuthentication, {logActions, loginFlow, registerSaga} from './../sagas';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 
@@ -15,6 +15,6 @@ export default function configureStore(): any {
 
     sagaMiddleware.run(loginFlow);
     sagaMiddleware.run(logActions);
-
+    sagaMiddleware.run(watchUserAuthentication);
     return store;
 }

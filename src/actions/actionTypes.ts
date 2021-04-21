@@ -6,6 +6,12 @@ export const LOGIN_CANCELLED = 'LOGIN_CANCELLED';
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const DELETE_TOKEN = 'DELETE_TOKEN';
 
+
+export const REGISTER_USER = 'REGISTER_USER';
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
+
 export default {
     LOGIN_REQUEST,
     LOGOUT,
@@ -14,4 +20,7 @@ export default {
     LOGIN_CANCELLED,
     SAVE_TOKEN,
     DELETE_TOKEN,
+    REGISTER_USER,
+    REGISTER_SUCCESS,
+    REGISTER_ERROR
 };

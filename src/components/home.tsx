@@ -2,6 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import { dataService} from "../services/shared-component";
 import Nav from "./nav";
+import UserList from "./userList";
 
 export class Home extends React.Component<any, any> {
      handleClick = () => {
@@ -12,6 +13,7 @@ export class Home extends React.Component<any, any> {
         return (
             <React.Fragment>
                 <Nav/>
+                <UserList/>
             <Button variant="primary" onClick={this.handleClick}>Logout</Button>
             </React.Fragment>
         )
