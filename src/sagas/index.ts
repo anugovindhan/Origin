@@ -1,23 +1,27 @@
 import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects';
 import {LOGIN_REQUEST} from "../actions/actionTypes";
+import {dataService} from "../services/shared-component";
+import {auth} from "../App";
 
 export function fakeAuthorize(username: any, password: any){
     let obj: any = {
-        username: username,
+        userEmail: username,
         password:password
     }
     return new Promise(async (resolve, reject) => {
         try {
-            await fetch('http://localhost:5000/authenticate', {
+            await fetch('http://localhost:8090/authenticate', {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify(obj)
             }).then(r => r.json()).then(res => {
-                if (res) {
-                    resolve(res.id_token);
+                if (res.jwt) {
+                    auth.onAuthentication();
+                    resolve(res.jwt);
                 }
                 else{
-                    alert('Error in Login');
+                    dataService.setData({logout: true});
+                    alert(res.message);
                 }
             });
 
